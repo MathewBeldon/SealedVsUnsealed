@@ -21,28 +21,10 @@ namespace SealedVsUnsealed.Performance.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("unsealed/virtual/mediator")]
-        public async Task<IActionResult> UnsealedVirtualMediator()
+        [HttpGet("sealed")]
+        public IActionResult Sealed()
         {
-            return Ok(await _mediator.Send(new UnsealedVirtualRequest(new UnsealedModel())));
-        }
-
-        [HttpGet("sealed/virtual/mediator")]
-        public async Task<IActionResult> SealedVirtualMediator()
-        {
-            return Ok(await _mediator.Send(new SealedVirtualRequest(new SealedModel())));
-        }
-
-        [HttpGet("unsealed/virtual")]
-        public IActionResult UnsealedVirtual()
-        {
-            return Ok(_unsealedModel.Virtual() + 10);
-        }
-
-        [HttpGet("sealed/virtual")]
-        public IActionResult SealedVirtual()
-        {
-            return Ok(_sealedModel.Virtual() + 10);
+            return Ok(_sealedModel.Normal() + 10);
         }
 
         [HttpGet("unsealed")]
@@ -50,11 +32,11 @@ namespace SealedVsUnsealed.Performance.Controllers
         {
             return Ok(_unsealedModel.Normal() + 10);
         }
-
-        [HttpGet("sealed")]
-        public IActionResult Sealed()
+      
+        [HttpGet("sealed/mediator")]
+        public async Task<IActionResult> SealedMediator()
         {
-            return Ok(_sealedModel.Normal() + 10);
+            return Ok(await _mediator.Send(new SealedRequest(new SealedModel())));
         }
 
         [HttpGet("unsealed/mediator")]
@@ -63,10 +45,28 @@ namespace SealedVsUnsealed.Performance.Controllers
             return Ok(await _mediator.Send(new UnsealedRequest(new UnsealedModel())));
         }
 
-        [HttpGet("sealed/mediator")]
-        public async Task<IActionResult> SealedMediator()
+        [HttpGet("sealed/virtual")]
+        public IActionResult SealedVirtual()
         {
-            return Ok(await _mediator.Send(new SealedRequest(new SealedModel())));
+            return Ok(_sealedModel.Virtual() + 10);
+        }
+
+        [HttpGet("unsealed/virtual")]
+        public IActionResult UnsealedVirtual()
+        {
+            return Ok(_unsealedModel.Virtual() + 10);
+        }
+
+        [HttpGet("sealed/virtual/mediator")]
+        public async Task<IActionResult> SealedVirtualMediator()
+        {
+            return Ok(await _mediator.Send(new SealedVirtualRequest(new SealedModel())));
+        }
+
+        [HttpGet("unsealed/virtual/mediator")]
+        public async Task<IActionResult> UnsealedVirtualMediator()
+        {
+            return Ok(await _mediator.Send(new UnsealedVirtualRequest(new UnsealedModel())));
         }
     }
 }

@@ -23,60 +23,52 @@ namespace PdfConcat.Benchmark
             return _baseModel.Virtual() + 20;
         }
 
-        //[MethodImpl(MethodImplOptions.NoInlining)]
-        //[Benchmark(Description = "Sealed Benchmark")]
-        //public int RunSealed()
-        //{
-        //    return _sealedModel.Normal() + 20;
-        //}
+        [Benchmark(Description = "Sealed Benchmark")]
+        public int RunSealed()
+        {
+           return _sealedModel.Normal() + 20;
+        }
 
-        //[MethodImpl(MethodImplOptions.NoInlining)]
-        //[Benchmark(Description = "Unsealed Benchmark")]
-        //public int RunUnsealed()
-        //{
-        //    return _unsealedModel.Normal() + 20;
-        //}
+        [Benchmark(Description = "Unsealed Benchmark")]
+        public int RunUnsealed()
+        {
+           return _unsealedModel.Normal() + 20;
+        }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         [Benchmark(Description = "Sealed BaseModel Benchmark")]
         public int RunSealedSub()
         {
             return _sealedSubModel.Normal() + 20;
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
         [Benchmark(Description = "Unsealed BaseModel Benchmark")]
         public int RunUnsealedSub()
         {
             return _unsealedSubModel.Normal() + 20;
         }
 
-        //[MethodImpl(MethodImplOptions.NoInlining)]
-        //[Benchmark(Description = "Sealed Virtual Benchmark")]
-        //public int RunVirtualSealed()
-        //{
-        //    return _sealedModel.Virtual() + 20;
-        //}
+        [Benchmark(Description = "Sealed Virtual Benchmark")]
+        public int RunVirtualSealed()
+        {
+           return _sealedModel.Virtual() + 20;
+        }
 
-        //[MethodImpl(MethodImplOptions.NoInlining)]
-        //[Benchmark(Description = "Unsealed Virtual Benchmark")]
-        //public int RunVirtualUnsealed()
-        //{
-        //    return _unsealedModel.Virtual() + 20;
-        //}
+        [Benchmark(Description = "Unsealed Virtual Benchmark")]
+        public int RunVirtualUnsealed()
+        {
+           return _unsealedModel.Virtual() + 20;
+        }
 
-        //[MethodImpl(MethodImplOptions.NoInlining)]
-        //[Benchmark(Description = "Sealed Is Type Benchmark")]
-        //public bool RunIsTypeSealed()
-        //{
-        //    return _stringObject is SealedModel;
-        //}
+        [Benchmark(Description = "Sealed Is Type Benchmark")]
+        public bool RunIsTypeSealed()
+        {
+           return _stringObject is SealedModel;
+        }
 
-        //[MethodImpl(MethodImplOptions.NoInlining)]
-        //[Benchmark(Description = "Unsealed Is Type Benchmark")]
-        //public bool RunIsTypeUnsealed()
-        //{
-        //    return _stringObject is UnsealedModel;
-        //}
+        [Benchmark(Description = "Unsealed Is Type Benchmark")]
+        public bool RunIsTypeUnsealed()
+        {
+           return _stringObject is UnsealedModel;
+        }
     }
 }

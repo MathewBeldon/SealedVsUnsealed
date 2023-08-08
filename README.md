@@ -2,17 +2,37 @@
 
 The choice between sealed and unsealed classes is not merely a syntactic one; it can have profound implications on the design, performance, and maintainability of a codebase. Most OOP languages, such as C#, provide explicit keywords to define classes as sealed, while in others, such as Swift, the concept is implicit.
 
-### What Is A Sealed Class
+## Contents
+* [What Is A Sealed Class](#what-is-a-sealed-class)
+* [What Is An Unsealed Class](#what-is-an-unsealed-class)
+* [Benchmarks](#benchmarks)
+    * [How To Run](#how-to-run)
+* [Performance Tests](#performance-tests)
+    * [K6 Results](#k6-results)
+    * [How To Run](#how-to-run-1)
+* [Sealed By Default](#sealed-by-default)
+    * [Benefits](#benefits)
+    * [Quotes](#quotes)
+    * [Additional Resources](additional-resources)
+* [Unsealed By Default](#unsealed-by-default)
+    * [Benefits](#benefits-1)
+    * [Quotes](#quotes-1)
+    * [Additional Resources](additional-resources-1)
+* [Conclusion](#conclusion)
 
-A sealed class is a class that cannot be inherited. It's a final declaration of a class, ensuring that no other class can extend it. Sealed classes provide a level of security and predictability in the code, as they prevent further modifications to the class hierarchy. They can be particularly useful when you want to encapsulate specific behavior without the risk of unintended alterations.
+## What Is A Sealed Class
 
-### What Is An Unsealed Class
+A sealed class is a class that cannot be inherited. It's a final declaration of a class, ensuring that no other class can extend it. Sealed classes provide a level of security and predictability in the code, as they prevent further modifications to the class hierarchy. They can be particularly useful when you want to encapsulate specific behaviour without the risk of unintended alterations.
+
+## What Is An Unsealed Class
 
 An unsealed class is open to inheritance, allowing other classes to extend it. This flexibility can lead to more dynamic and extensible code structures, enabling developers to build upon existing functionality.
 
 ## Benchmarks
 
-These benchmarks attempt to reproduce the results from the dotnet 6 performance improvements [blog post](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-6/#peanut-butter)
+These benchmarks attempt to reproduce the results from the dotnet 6 performance improvements [blog post](https://devblogs.microsoft.com/dotnet/performance-improvements-in-net-6/#peanut-butter)   
+   
+_The below classes can be found [here](SealedVsUnsealed.Benchmark/Models)_   
 
 |                               Method |      Mean |     Error |    StdDev |    Median |
 |------------------------------------- |----------:|----------:|----------:|----------:|
@@ -26,12 +46,21 @@ These benchmarks attempt to reproduce the results from the dotnet 6 performance 
 |           'Sealed Is Type Benchmark' | 0.2032 ns | 0.0043 ns | 0.0034 ns | 0.2022 ns |
 |         'Unsealed Is Type Benchmark' | 1.7030 ns | 0.0316 ns | 0.0295 ns | 1.6929 ns |
 
-The results for `Sealed Benchmark`, `Unsealed Benchmark`, `Sealed Virtual Benchmark`, `Sealed Benchmark No Inheritance` and `Unsealed Benchmark No Inheritance` (denoted by *) are marked as "ZeroMeasurement", highlighting that the methods being benchmarked are executing so quickly that they are indistinguishable from empty methods. This means that we cannot reliably mesure these methods, and the speed can vary between different runs.
+The results for `Sealed Benchmark`, `Unsealed Benchmark`, `Sealed Virtual Benchmark`, `Sealed Benchmark No Inheritance` and `Unsealed Benchmark No Inheritance` (denoted by *) are marked as "ZeroMeasurement", highlighting that the methods being benchmarked are executing so quickly that they are indistinguishable from empty methods. This means that we cannot reliably measure these methods, and the speed can vary between different runs.
+
+### How To Run
+
+From within the SealedVsUnsealed.Benchmark folder
+```
+dotnet run --configuration Release
+```
 
 ## Performance Tests
 
-The below performance results compare different ways of calling a methods that adds two numbers together, one virtual method and one non-virtual method, each then called through mediator.
- 
+The below performance results compare different ways of calling methods that add two numbers together, one virtual method and one non-virtual method, each then called through mediator.  
+    
+_Source for the controllers can be found [here](/SealedVsUnsealed.Performance/Controllers/TestController.cs)_   
+_Source for the performance tests can be found [here](SealedVsUnsealed.Performance/k6/run.js)_   
 
 ### K6 Results
 
@@ -131,9 +160,7 @@ dotnet run --configuration Release
 To start the performance tests   
 ```
 k6 run k6/run.js
-
 ```
-
 ## Sealed By Default
 
 ### Benefits
@@ -153,7 +180,7 @@ k6 run k6/run.js
 > Please yes!  
 > – <cite>[Random HN Reader, 2019](https://news.ycombinator.com/item?id=18914605)</cite>
 
-### Aditional Resources
+### Additional Resources
 
 [Pendulum swing: sealed by default](https://blog.ploeh.dk/2021/03/08/pendulum-swing-sealed-by-default/) By Mark Seemann   
 [Why all your classes should be sealed by default in C#](https://www.youtube.com/watch?v=d76WWAD99Yo) By Nick Chapsas   
@@ -181,5 +208,6 @@ k6 run k6/run.js
 [Framework design guidelines - Sealing](https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/sealing) By Microsoft  
 [Seal](https://martinfowler.com/bliki/Seal.html) By Martin Fowler
 
-
 ## Conclusion
+
+After going through all this, I still believe that classes should be sealed by default. While the performance benefits are often minimal, sealing a class provides clear guidance on its intended use. This approach promotes a more modular and decoupled codebase by favouring composition over inheritance.
