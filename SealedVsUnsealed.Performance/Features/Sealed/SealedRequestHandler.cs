@@ -6,7 +6,7 @@ namespace SealedVsUnsealed.Performance.Features.Sealed
     {
         public Task<int> Handle(SealedRequest request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(request.SealedModel.Value + 10);
+            return Task.FromResult(request.SealedModel.Normal() + 10);
         }
     }
 }

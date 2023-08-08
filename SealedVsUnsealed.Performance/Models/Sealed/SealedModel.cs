@@ -4,6 +4,8 @@
     {
         public SealedModel() { }
 
-        public int Value;
+        public int Normal() => 1;
+
+        public override int Virtual() => 2;
     }
 }
